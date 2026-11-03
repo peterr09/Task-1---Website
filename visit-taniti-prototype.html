@@ -1,0 +1,528 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>
+<title>Visit Taniti</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* Layout: sticky top bar, one content column (max 1120px), cards in auto-fit grids that collapse to one column on phones */
+:root{
+  --bg:#f5f9f8; --surface:#ffffff; --sunk:#e8f1ef; --ink:#12302e; --muted:#4f6765; --line:#cfdfdc;
+  --lagoon:#0b7a78; --lagoon-ink:#ffffff; --lava:#c9472c; --sand:#f1e3c4; --warn-bg:#fff4d6; --warn-ink:#6b4a00;
+  --ok:#1f7a45;
+  --display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1a19; --surface:#132524; --sunk:#0a1414; --ink:#e3efed; --muted:#9db5b2; --line:#2a4341;
+  --lagoon:#3cbcb6; --lagoon-ink:#04211f; --lava:#ff8a6b; --sand:#3a3324; --warn-bg:#3a2f12; --warn-ink:#f6d98a; --ok:#6fd39a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1a19; --surface:#132524; --sunk:#0a1414; --ink:#e3efed; --muted:#9db5b2; --line:#2a4341;
+  --lagoon:#3cbcb6; --lagoon-ink:#04211f; --lava:#ff8a6b; --sand:#3a3324; --warn-bg:#3a2f12; --warn-ink:#f6d98a; --ok:#6fd39a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:var(--lagoon)}
+:focus-visible{outline:3px solid var(--lava);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800}
+h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand svg{width:28px;height:28px}
+nav.main{display:flex;gap:4px;flex:1}
+nav.main a{color:var(--ink);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px;font-size:.95rem;white-space:nowrap}
+nav.main a:hover{background:var(--sunk)}
+nav.main a[aria-current="page"]{color:var(--lagoon);box-shadow:inset 0 -3px 0 var(--lagoon);border-radius:0}
+.top-actions{display:flex;gap:8px;align-items:center;margin-left:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:700 .95rem var(--body);padding:10px 18px;border-radius:999px;border:2px solid var(--lagoon);background:var(--lagoon);color:var(--lagoon-ink);cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--lagoon)}
+.btn.small{padding:6px 12px;font-size:.85rem}
+.btn.block{width:100%}
+.trip-btn{position:relative}
+.count{background:var(--lava);color:#fff;border-radius:999px;font-size:.72rem;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+.menu-btn{display:none;background:none;border:0;color:var(--ink);padding:8px;cursor:pointer}
+.menu-btn svg{width:28px;height:28px}
+#mobileMenu{border-top:1px solid var(--line);background:var(--surface)}
+#mobileMenu a{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:700;font-size:1.05rem}
+#mobileMenu .wrap{padding-block:8px 16px}
+@media (max-width:900px){nav.main{display:none}.menu-btn{display:block}.top-actions .book-top{display:none}}
+
+/* holiday banner */
+.notice{background:var(--warn-bg);color:var(--warn-ink);font-size:.92rem}
+.notice .wrap{display:flex;gap:10px;align-items:center;padding-block:10px;flex-wrap:wrap}
+.notice a{color:inherit;font-weight:700}
+.notice button{margin-left:auto;background:none;border:0;color:inherit;font-size:1.2rem;cursor:pointer}
+
+main{padding-block:28px 64px;min-height:60vh}
+section+section{margin-top:48px}
+.crumbs{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--muted)}
+
+/* hero */
+.hero{position:relative;border-radius:18px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;color:#fff}
+.hero .art{position:absolute;inset:0}
+.hero .art svg{width:100%;height:100%;display:block}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,32,32,.78),rgba(4,32,32,.35) 55%,transparent 80%)}
+.hero .txt{position:relative;z-index:1;padding:32px;max-width:680px;display:grid;gap:12px}
+@media (max-width:700px){.hero::after{background:linear-gradient(rgba(4,32,32,.35),rgba(4,32,32,.8))}}
+.hero h1{color:#fff}
+.hero p{font-size:1.1rem}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.hero .btn.ghost{color:#fff;border-color:#fff}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;text-decoration:none;color:var(--ink);display:grid;gap:6px}
+.tile:hover{border-color:var(--lagoon)}
+.tile .ico{width:40px;height:40px;border-radius:10px;background:var(--sunk);display:flex;align-items:center;justify-content:center;color:var(--lagoon)}
+.tile .ico svg{width:24px;height:24px}
+.tile b{font-family:var(--display);font-size:1.1rem}
+.tile span{font-size:.9rem;color:var(--muted)}
+@media (max-width:760px){.tiles{grid-template-columns:1fr 1fr}}
+
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.grid.fit{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.card .pic{aspect-ratio:16/9;max-width:100%;display:block}
+.card .pic svg{width:100%;height:100%;display:block}
+.card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .meta{font-size:.86rem;color:var(--muted)}
+.card .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;gap:8px}
+.price{font-weight:700;font-variant-numeric:tabular-nums}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.tag.fam{background:var(--sand);color:var(--ink)}
+
+.know{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.know div{padding:16px;border-right:1px solid var(--line)}
+.know div:last-child{border-right:0}
+.know b{display:block;font-family:var(--display);font-size:1.05rem}
+.know span{font-size:.9rem;color:var(--muted)}
+@media (max-width:760px){.know{grid-template-columns:1fr 1fr}.know div:nth-child(2){border-right:0}.know div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font:600 .9rem var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--lagoon);border-color:var(--lagoon);color:var(--lagoon-ink)}
+.selects{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;align-items:end}
+label.f{display:grid;gap:4px;font-size:.85rem;font-weight:700;color:var(--muted)}
+select,input{font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:9px 10px;min-width:0}
+.result-count{font-size:.9rem;color:var(--muted);margin-bottom:10px}
+
+/* detail */
+.detail{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:start}
+.detail .pic{border-radius:14px;overflow:hidden;aspect-ratio:16/9;max-width:100%}
+.detail .pic svg{width:100%;height:100%;display:block}
+.facts{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.95rem;margin:10px 0 16px}
+.facts b{font-weight:700}
+.detail .copy{display:grid;gap:14px;max-width:65ch}
+.detail ul{margin:0;padding-left:20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:12px;position:sticky;top:84px}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stepper .ctl{display:flex;align-items:center;gap:6px}
+.stepper button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.2rem;cursor:pointer}
+.stepper output{min-width:24px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;font-size:1.05rem}
+.err{color:var(--lava);font-size:.88rem;font-weight:700}
+.note-sm{font-size:.85rem;color:var(--muted)}
+@media (max-width:860px){.detail{grid-template-columns:1fr}.panel{position:static}}
+
+/* booking */
+.steps{display:flex;gap:8px;flex-wrap:wrap;font-size:.9rem;margin:6px 0 20px}
+.steps span{padding:4px 12px;border-radius:999px;background:var(--sunk);color:var(--muted);font-weight:700}
+.steps span.on{background:var(--lagoon);color:var(--lagoon-ink)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form .full{grid-column:1/-1}
+@media (max-width:600px){.form{grid-template-columns:1fr}}
+.summary{background:var(--sunk);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.two{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+
+.confirm{max-width:680px;margin:0 auto;display:grid;gap:18px;text-align:center}
+.check{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.next{display:grid;gap:10px;text-align:left}
+.next a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:700}
+.next a:hover{border-color:var(--lagoon)}
+
+/* lists */
+.row-card{display:grid;grid-template-columns:200px 1fr auto;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row-card .pic{height:100%;min-height:130px}
+.row-card .pic svg{width:100%;height:100%;display:block}
+.row-card .body{padding:14px 0;display:grid;gap:6px;min-width:0}
+.row-card .act{padding:16px;display:grid;gap:8px;justify-items:end}
+.stack{display:grid;gap:14px}
+@media (max-width:700px){.row-card{grid-template-columns:1fr}.row-card .pic{min-height:0;aspect-ratio:16/7}.row-card .body{padding:0 16px}.row-card .act{justify-items:start;padding-top:0}}
+
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.way{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:8px;align-content:start}
+.way h3{display:flex;gap:10px;align-items:center}
+.way h3 svg{width:24px;height:24px;color:var(--lagoon);flex:none}
+.hl{background:var(--sand);color:var(--ink);font-weight:700;padding:1px 6px;border-radius:4px}
+
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.faq summary{cursor:pointer;padding:16px 18px;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.3rem;color:var(--lagoon)}
+.faq details[open] summary::after{content:"–"}
+.faq .a{padding:0 18px 18px;display:grid;gap:8px;max-width:65ch}
+.search{max-width:820px;margin:14px 0 18px}
+.search input{width:100%;padding:12px 14px;font-size:1rem}
+table.hol{border-collapse:collapse;width:100%;font-size:.95rem}
+table.hol td,table.hol th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.tablewrap{overflow-x:auto}
+
+.empty{padding:30px;text-align:center;border:1.5px dashed var(--line);border-radius:var(--r);color:var(--muted);display:grid;gap:12px;justify-items:center}
+footer{border-top:1px solid var(--line);background:var(--surface);font-size:.9rem;color:var(--muted)}
+footer .wrap{padding-block:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+footer b{color:var(--ink);display:block;margin-bottom:6px}
+footer a{color:var(--muted);display:block;text-decoration:none;padding:2px 0}
+.proto{grid-column:1/-1;border-top:1px solid var(--line);padding-top:14px;font-size:.82rem}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:50}
+@media (prefers-reduced-motion:no-preference){.card,.tile,.next a{transition:border-color .15s}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Visit Taniti home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--lagoon)"/><path d="M5 21 L13 11 L17 16 L20 13 L27 21 Z" fill="var(--surface)"/><path d="M4 23 Q10 20 16 23 T28 23" stroke="var(--surface)" stroke-width="2" fill="none"/></svg>
+      Visit Taniti
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#things">Things to Do</a>
+      <a href="#stay">Where to Stay</a>
+      <a href="#dining">Food &amp; Dining</a>
+      <a href="#getting-around">Getting Around</a>
+      <a href="#plan">Plan Your Trip</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn ghost small trip-btn" href="#mytrip" aria-label="My Trip">♡ My Trip <span class="count" id="tripCount">0</span></a>
+      <a class="btn small book-top" href="#things">Book</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" hidden>
+    <div class="wrap">
+      <a href="#things">Things to Do <span>›</span></a>
+      <a href="#stay">Where to Stay <span>›</span></a>
+      <a href="#dining">Food &amp; Dining <span>›</span></a>
+      <a href="#getting-around">Getting Around <span>›</span></a>
+      <a href="#plan">Plan Your Trip <span>›</span></a>
+      <a href="#mytrip">My Trip <span>♡</span></a>
+    </div>
+  </div>
+</header>
+
+<div class="notice" id="notice" role="region" aria-label="Holiday notice">
+  <div class="wrap">
+    <b>Holiday notice:</b> Many attractions and restaurants close on Taniti's national holidays.
+    <a href="#holidays">See the holiday calendar ›</a>
+    <button id="closeNotice" aria-label="Dismiss holiday notice">×</button>
+  </div>
+</div>
+
+<main><div class="wrap" id="view"></div></main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Visit Taniti</b>Official tourism site of the Government of Taniti. All lodging is government inspected.</div>
+    <div><b>Plan</b><a href="#things">Things to Do</a><a href="#stay">Where to Stay</a><a href="#getting-around">Getting Around</a><a href="#plan">Travel FAQ</a></div>
+    <div><b>Help</b><a href="#plan">Health &amp; hospital</a><a href="#plan">Safety tips</a><a href="#holidays">Holiday calendar</a></div>
+    <div><b>Contact</b>Visitor Center, Taniti City<br>Open daily 8 a.m.–6 p.m.</div>
+    <p class="proto">Interactive prototype for a UX design course project. Taniti is a fictional island; names, prices, dates and photos are placeholders, and no bookings or payments are processed.</p>
+  </div>
+</footer>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+// ---------- illustrations (placeholder "photos") ----------
+const SCENES={
+ beach:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="sk${s}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc9d6"/><stop offset="1" stop-color="#d9f0ef"/></linearGradient></defs><rect width="320" height="180" fill="url(#sk${s})"/><circle cx="250" cy="45" r="20" fill="#ffe7a3"/><rect y="95" width="320" height="40" fill="#1f9aa0"/><path d="M0 105 Q80 98 160 106 T320 103 V135 H0Z" fill="#2fb3b0" opacity=".7"/><path d="M0 130 Q120 118 320 132 V180 H0Z" fill="#efdcae"/><path d="M60 140 Q64 100 52 70" stroke="#6b4a2b" stroke-width="5" fill="none"/><path d="M52 70 q-26 -4 -36 10 M52 70 q-20 -16 -38 -12 M52 70 q10 -20 30 -18 M52 70 q24 -2 32 14" stroke="#2f7a45" stroke-width="7" fill="none" stroke-linecap="round"/></svg>`,
+ rainforest:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#2c6b4a"/><path d="M0 60 Q40 20 80 50 T160 40 T240 55 T320 35 V180 H0Z" fill="#245c3f"/><path d="M0 100 Q50 70 100 95 T200 85 T320 95 V180 H0Z" fill="#1d4d34"/><path d="M0 140 Q60 115 120 138 T240 128 T320 140 V180 H0Z" fill="#163d29"/><path d="M40 0 L250 120" stroke="#e9e3d0" stroke-width="2"/><circle cx="170" cy="74" r="6" fill="#c9472c"/><path d="M165 80 l5 14 5 -14" stroke="#c9472c" stroke-width="3" fill="none"/></svg>`,
+ volcano:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="vk${s}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3a46b"/><stop offset="1" stop-color="#f8d9b0"/></linearGradient></defs><rect width="320" height="180" fill="url(#vk${s})"/><path d="M150 30 q-10 -14 6 -22 q14 -6 22 8 q-8 -2 -10 6" fill="#c9c2bb" opacity=".8"/><path d="M40 180 L140 52 L180 52 L290 180Z" fill="#3b3330"/><path d="M140 52 L180 52 L170 70 L150 70Z" fill="#c9472c"/><path d="M0 150 Q80 130 160 150 T320 145 V180 H0Z" fill="#2c6b4a"/></svg>`,
+ water:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#0e6f86"/><path d="M0 40 Q80 30 160 42 T320 38 V0 H0Z" fill="#8fd4e0"/><circle cx="90" cy="110" r="10" fill="#ffd45e"/><path d="M80 110 l-14 -8 v16z" fill="#ffd45e"/><circle cx="210" cy="130" r="8" fill="#ff8a6b"/><path d="M218 130 l12 -7 v14z" fill="#ff8a6b"/><path d="M30 180 q10 -40 0 -60 M45 180 q-6 -30 6 -50" stroke="#2fb3b0" stroke-width="5" fill="none"/><path d="M260 180 q-8 -30 4 -55" stroke="#2fb3b0" stroke-width="5" fill="none"/></svg>`,
+ sky:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#8fd0e8"/><path d="M0 140 Q60 90 120 120 T240 100 T320 120 V180 H0Z" fill="#2c6b4a"/><path d="M150 60 h60 l10 -6 h20 v10 h-16 l-20 8 h-50z" fill="#3b3330"/><path d="M175 50 h40" stroke="#3b3330" stroke-width="3"/><rect y="150" width="320" height="30" fill="#1f9aa0"/></svg>`,
+ town:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#f2e6cf"/><rect y="130" width="320" height="50" fill="#d8c49c"/><path d="M30 130 V80 L60 55 L90 80 V130Z" fill="#c9472c"/><rect x="50" y="100" width="20" height="30" fill="#3b3330"/><path d="M110 130 V70 L150 45 L190 70 V130Z" fill="#0b7a78"/><rect x="135" y="90" width="12" height="14" fill="#f2e6cf"/><rect x="155" y="90" width="12" height="14" fill="#f2e6cf"/><path d="M210 130 V85 L245 62 L280 85 V130Z" fill="#e0a84a"/><rect x="236" y="100" width="18" height="30" fill="#3b3330"/></svg>`,
+ night:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#1b2340"/><circle cx="260" cy="40" r="16" fill="#f2e6cf"/><circle cx="60" cy="30" r="2" fill="#fff"/><circle cx="120" cy="50" r="1.5" fill="#fff"/><circle cx="200" cy="25" r="2" fill="#fff"/><path d="M0 130 H320 V180 H0Z" fill="#0f162b"/><rect x="40" y="80" width="80" height="50" fill="#3a2f5c"/><rect x="55" y="95" width="14" height="14" fill="#ffd45e"/><rect x="90" y="95" width="14" height="14" fill="#ff8a6b"/><rect x="160" y="70" width="110" height="60" fill="#2a3a6a"/><rect x="175" y="85" width="80" height="12" fill="#3cbcb6"/></svg>`,
+ room:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#e8f1ef"/><rect x="190" y="30" width="100" height="70" fill="#7cc9d6"/><path d="M190 80 Q240 70 290 82 V100 H190Z" fill="#1f9aa0"/><rect x="190" y="30" width="100" height="70" fill="none" stroke="#f5f9f8" stroke-width="6"/><rect x="30" y="100" width="150" height="45" rx="6" fill="#f1e3c4"/><rect x="30" y="90" width="150" height="14" rx="5" fill="#ffffff"/><rect x="40" y="80" width="40" height="16" rx="6" fill="#0b7a78"/><rect x="0" y="145" width="320" height="35" fill="#b99b70"/></svg>`,
+ food:(s)=>`<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice"><rect width="320" height="180" fill="#f1e3c4"/><circle cx="160" cy="95" r="62" fill="#ffffff"/><circle cx="160" cy="95" r="48" fill="#f7f2e8"/><ellipse cx="145" cy="100" rx="26" ry="18" fill="#fafafa" stroke="#e6dccb"/><path d="M160 80 q30 6 34 24 q-20 8 -40 -4z" fill="#e0a84a"/><circle cx="182" cy="112" r="5" fill="#2f7a45"/><circle cx="172" cy="118" r="4" fill="#c9472c"/></svg>`
+};
+let sceneN=0; const scene=k=>(SCENES[k]||SCENES.beach)(sceneN++);
+
+// ---------- data (fictional sample content) ----------
+const ACTS=[
+ {id:"volcano-tour",name:"Guided Volcano Tour",cat:["volcano","family"],area:"Interior highlands",dur:"Half day (4 hrs)",price:65,child:40,ages:"All ages",scene:"volcano",times:["8:00 a.m.","1:00 p.m."],desc:"Ride a guided bus up to the viewing area of Taniti's active volcano, then walk a short marked trail to the crater lookout. Guides explain the island's geology and safety rules.",inc:["Round-trip transport from Taniti City","Bottled water and snacks","Licensed guide"]},
+ {id:"zip-line",name:"Rainforest Zip-line",cat:["rainforest","family"],area:"Merriton Landing",dur:"3 hours",price:85,child:60,ages:"Ages 8+",scene:"rainforest",times:["9:00 a.m.","11:30 a.m.","2:00 p.m."],desc:"Fly over the rainforest canopy on six connected zip-lines. A safety briefing and practice line come first. Children ages 8 and up can ride with a parent nearby.",inc:["Harness, helmet and gloves","Pickup from Taniti City and Merriton Landing hotels","Photos at the final platform"]},
+ {id:"snorkeling",name:"Yellow Leaf Bay Snorkeling",cat:["beach","water","family"],area:"Yellow Leaf Bay",dur:"2 hours",price:45,child:30,ages:"Ages 6+",scene:"water",times:["9:00 a.m.","12:00 p.m.","3:00 p.m."],desc:"Explore the calm, shallow reef just off the white sand beaches of Yellow Leaf Bay. Guides stay in the water with every group.",inc:["Mask, snorkel, fins and life vest","Reef-safe sunscreen","Guide in the water"]},
+ {id:"boat-tour",name:"Island Boat Tour",cat:["water","family"],area:"Departs Taniti City harbor",dur:"Full day (7 hrs)",price:110,child:70,ages:"All ages",scene:"beach",times:["8:30 a.m."],desc:"Circle the island by boat, with stops at a rocky beach for swimming and a quiet cove for lunch.",inc:["Lunch and drinks","Swim stop","Life vests for all sizes"]},
+ {id:"bus-tour",name:"Island Bus Tour",cat:["culture","family"],area:"Departs Taniti City",dur:"5 hours",price:55,child:35,ages:"All ages",scene:"town",times:["9:00 a.m.","1:00 p.m."],desc:"An air-conditioned tour of the island's villages, viewpoints and farms, with a stop at a local market.",inc:["Air-conditioned bus","Local guide","Market stop"]},
+ {id:"rainforest-hike",name:"Rainforest Guided Hike",cat:["rainforest"],area:"Rainforest trailhead",dur:"3 hours",price:40,child:25,ages:"Ages 10+",scene:"rainforest",times:["7:30 a.m.","2:00 p.m."],desc:"A moderate guided hike to a waterfall pool. Wear closed-toe shoes.",inc:["Guide","Water","Trail snacks"]},
+ {id:"helicopter",name:"Helicopter Ride",cat:["volcano"],area:"Taniti Airport",dur:"45 minutes",price:240,child:240,ages:"Ages 5+",scene:"sky",times:["10:00 a.m.","12:00 p.m.","4:00 p.m."],desc:"See the volcano, rainforest and the full coastline from above.",inc:["Headsets","Window seat for every guest"]},
+ {id:"fishing",name:"Chartered Fishing Trip",cat:["water"],area:"Taniti City harbor",dur:"Half day",price:150,child:100,ages:"Ages 10+",scene:"water",times:["6:00 a.m.","1:00 p.m."],desc:"Fish with a local captain. Your catch can be cooked at a partner restaurant.",inc:["Rods and bait","Captain and crew"]},
+ {id:"museum",name:"Taniti History Museum",cat:["culture","family"],area:"Taniti City",dur:"About 2 hours",price:12,child:6,ages:"All ages",scene:"town",times:["10:00 a.m.","1:00 p.m.","3:00 p.m."],desc:"Learn about Taniti's people, fishing traditions and native architecture.",inc:["Entry ticket","Audio guide"]},
+ {id:"art-galleries",name:"Art Gallery Walk",cat:["culture"],area:"Merriton Landing",dur:"2 hours",price:20,child:0,ages:"All ages",scene:"town",times:["4:00 p.m."],desc:"A guided walk through Merriton Landing's galleries of local artists.",inc:["Guide","Gallery entry"]},
+ {id:"microbrewery",name:"Microbrewery Tasting",cat:["nightlife"],area:"Merriton Landing",dur:"90 minutes",price:30,child:0,ages:"18+",scene:"night",times:["5:00 p.m.","7:00 p.m."],desc:"Taste local beers at Taniti's microbrewery. Alcohol is not sold between midnight and 9:00 a.m.",inc:["Five tasting glasses","Snack plate"]},
+ {id:"bowling-arcade",name:"Bowling and Arcade",cat:["nightlife","family"],area:"Merriton Landing",dur:"Open play",price:15,child:10,ages:"All ages",scene:"night",times:["Any time 12–10 p.m."],desc:"Bowling lanes, arcade games and a snack bar. A good rainy-day option for families.",inc:["Shoe rental","Game card with 20 credits"]}
+];
+const CATS=[["all","All"],["beach","Beaches"],["rainforest","Rainforest"],["volcano","Volcano"],["water","On the water"],["family","Family-friendly"],["culture","Culture"],["nightlife","Nightlife"]];
+const STAYS=[
+ {id:"yellow-leaf-resort",name:"Yellow Leaf Bay Resort",type:"Resort",area:"Taniti City",price:310,stars:"4-star",family:true,feat:["Beachfront","Pool","Kids' club","Airport shuttle"],desc:"Taniti's only four-star resort, on the white sand beach of Yellow Leaf Bay."},
+ {id:"harbor-house",name:"Harbor House Hotel",type:"Hotel",area:"Taniti City",price:140,family:false,feat:["Family-owned","Walk to bus stop","Harbor views"],desc:"A small family-owned hotel near the harbor and the public bus line."},
+ {id:"merriton-family-inn",name:"Merriton Family Inn",type:"Hotel",area:"Merriton Landing",price:165,family:true,feat:["Family-owned","Family suites","Pool","Walk to zip-line pickup"],desc:"Family suites with kitchenettes, a short walk from Merriton Landing's restaurants and activities."},
+ {id:"landing-lodge",name:"Landing Lodge",type:"Hotel",area:"Merriton Landing",price:120,family:false,feat:["Family-owned","Quiet rooms"],desc:"A quiet, adults-oriented hotel close to galleries and the microbrewery."},
+ {id:"hibiscus-bb",name:"Hibiscus House B&B",type:"B&B",area:"Taniti City",price:105,family:false,feat:["Breakfast included","Native architecture"],desc:"Four rooms in a restored traditional home. Breakfast is cooked by the owners."},
+ {id:"canopy-bb",name:"Canopy Edge B&B",type:"B&B",area:"Rainforest",price:125,family:true,feat:["Breakfast included","Rainforest trails","Family room"],desc:"Wake up next to the rainforest. Hosts arrange hiking and zip-line pickups."},
+ {id:"backpackers",name:"Taniti Backpackers Hostel",type:"Hostel",area:"Taniti City",price:35,family:false,feat:["Shared and private rooms","Bike rental"],desc:"The island's budget option, a short walk from the beach."},
+ {id:"bayfront-beach-house",name:"Bayfront Beach House",type:"Condo / Beach house",area:"Merriton Landing",price:280,family:true,feat:["Sleeps 8","Full kitchen","On the beach"],desc:"A private beach house for larger families and wedding groups."}
+];
+const FOOD=[
+ ["Mama Lei's Kitchen","Local fish & rice","Taniti City"],["Harbor Catch","Local fish & rice","Taniti City"],["Reef Shack","Local fish & rice","Yellow Leaf Bay"],["Fisherman's Table","Local fish & rice","Merriton Landing"],["Island Rice House","Local fish & rice","Taniti City"],
+ ["Bayside Grill","American","Merriton Landing"],["Sunset Diner","American","Taniti City"],["Landing Burger Co.","American","Merriton Landing"],
+ ["Jade Lantern","Pan-Asian","Taniti City"],["Wok & Wave","Pan-Asian","Merriton Landing"]];
+const HOLIDAYS=[["January 1","New Year's Day"],["March 14","Founders' Day"],["May 1","Harvest Festival (2 days)"],["July 20","Independence Day"],["September 9","Day of the Sea"],["December 24–26","Winter Holidays"]];
+
+// ---------- state ----------
+const state={cat:"all",area:"all",stayType:"All",stayArea:"all",stayFam:false,booking:null,trip:[]};
+try{state.trip=JSON.parse(localStorage.getItem("taniti-trip")||"[]")}catch(e){}
+const saveTrip=()=>{try{localStorage.setItem("taniti-trip",JSON.stringify(state.trip))}catch(e){};document.getElementById("tripCount").textContent=state.trip.length};
+const $=s=>document.querySelector(s);
+const money=n=>"$"+n.toLocaleString("en-US");
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,2200)}
+function toggleTrip(kind,id,name){const k=kind+":"+id;const i=state.trip.findIndex(x=>x.k===k);
+ if(i>=0){state.trip.splice(i,1);toast("Removed from My Trip")}else{state.trip.push({k,kind,id,name});toast("Saved to My Trip")}saveTrip();render()}
+const inTrip=(kind,id)=>state.trip.some(x=>x.k===kind+":"+id);
+
+// ---------- views ----------
+function actCard(a){return `<article class="card"><a class="pic" href="#activity-${a.id}" aria-hidden="true" tabindex="-1">${scene(a.scene)}</a><div class="body">
+ <div class="tags">${a.cat.includes("family")?'<span class="tag fam">Family-friendly</span>':""}<span class="tag">${a.ages}</span></div>
+ <h3>${a.name}</h3><p class="meta">${a.area} · ${a.dur}</p>
+ <div class="foot"><span class="price">From ${money(a.price)}</span><a class="btn small" href="#activity-${a.id}">View &amp; Book</a></div></div></article>`}
+
+function vHome(){return `
+<section class="hero"><div class="art">${scene("beach")}</div><div class="txt">
+ <p class="eyebrow" style="color:#e6f6f4">Welcome to Taniti</p>
+ <h1>Beaches, rainforest and a living volcano, all on one small island.</h1>
+ <p>Plan your days, book tours and find a place to stay in a few taps.</p>
+ <div class="cta"><a class="btn" href="#things">Find things to do</a><a class="btn ghost" href="#plan">Plan your trip</a></div></div></section>
+<section><h2>Start planning</h2><div class="tiles">
+ ${tile("#things","Things to Do","Tours, beaches and nightlife",'<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>')}
+ ${tile("#stay","Where to Stay","Resort, hotels, B&Bs, hostel",'<path d="M3 20V9l9-5 9 5v11M9 20v-6h6v6"/>')}
+ ${tile("#dining","Food & Dining","10 restaurants, 5 grocers",'<path d="M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3c-2 2-2 6 0 8v10"/>')}
+ ${tile("#getting-around","Getting Around","Buses, taxis, cars, bikes",'<rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 11h16M8 21v-4M16 21v-4"/>')}
+</div></section>
+<section><div class="sec-head"><div><p class="eyebrow">Most booked</p><h2>Popular experiences</h2></div><a href="#things">See all things to do ›</a></div>
+ <div class="grid fit">${["volcano-tour","zip-line","snorkeling"].map(id=>actCard(ACTS.find(a=>a.id===id))).join("")}</div></section>
+<section><div class="sec-head"><h2>Good to know before you go</h2><a href="#plan">All travel info ›</a></div>
+ <div class="know"><div><b>U.S. dollar</b><span>Euros, yen and major cards widely accepted</span></div><div><b>120-volt outlets</b><span>Same as the U.S., no adapter needed</span></div><div><b>English spoken</b><span>Widely in Taniti City, less in rural areas</span></div><div><b>Buses 5 a.m.–11 p.m.</b><span>Daily in Taniti City</span></div></div></section>`}
+function tile(h,t,s,p){return `<a class="tile" href="${h}"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">${p}</svg></span><b>${t}</b><span>${s}</span></a>`}
+
+function vThings(){const areas=[...new Set(ACTS.map(a=>a.area))].sort();
+ const list=ACTS.filter(a=>(state.cat==="all"||a.cat.includes(state.cat))&&(state.area==="all"||a.area===state.area));
+ return `<div class="crumbs"><a href="#home">Home</a> › Things to Do</div><h1>Things to Do</h1>
+ <p class="muted" style="margin-top:6px">Most visitors come for the beaches, the rainforest and the volcano. Every activity below can be booked online.</p>
+ <div class="filters" role="group" aria-label="Filter by category">${CATS.map(([k,l])=>`<button class="chip" data-cat="${k}" aria-pressed="${state.cat===k}">${l}</button>`).join("")}</div>
+ <div class="selects"><label class="f" for="areaSel">Area<select id="areaSel"><option value="all">All areas</option>${areas.map(a=>`<option ${state.area===a?"selected":""}>${a}</option>`).join("")}</select></label></div>
+ <p class="result-count" aria-live="polite">${list.length} ${list.length===1?"activity":"activities"}</p>
+ ${list.length?`<div class="grid">${list.map(actCard).join("")}</div>`:`<div class="empty"><b>No activities match these filters.</b><button class="btn ghost small" id="clearF">Clear filters</button></div>`}`}
+
+function vActivity(id){const a=ACTS.find(x=>x.id===id);if(!a)return vNotFound();
+ const b=state.booking&&state.booking.id===id?state.booking:{id,date:"",time:"",adults:2,children:0};state.booking=b;
+ const min=new Date();min.setDate(min.getDate()+1);const minS=min.toISOString().slice(0,10);
+ return `<div class="crumbs"><a href="#home">Home</a> › <a href="#things">Things to Do</a> › ${a.name}</div>
+ <div class="detail"><div><div class="pic">${scene(a.scene)}</div>
+  <h1 style="margin-top:18px">${a.name}</h1>
+  <div class="facts"><span><b>Where:</b> ${a.area}</span><span><b>Length:</b> ${a.dur}</span><span><b>Ages:</b> ${a.ages}</span></div>
+  <div class="copy"><p>${a.desc}</p><h3>What's included</h3><ul>${a.inc.map(i=>`<li>${i}</li>`).join("")}</ul>
+  <h3>Getting there</h3><p>Taniti City and Merriton Landing are both easy to walk. Public buses run 5 a.m.–11 p.m. in Taniti City, and taxis are available. <a href="#getting-around">See all transportation options</a>.</p>
+  <h3>Before you book</h3><p>This tour does not run on national holidays. <a href="#holidays">Check the holiday calendar</a>.</p></div></div>
+ <aside class="panel" aria-label="Book this activity"><h3>Book this activity</h3>
+  <p><span class="price" style="font-size:1.3rem">${money(a.price)}</span> <span class="muted">per adult</span>${a.child?` · <span class="price">${money(a.child)}</span> <span class="muted">per child</span>`:""}</p>
+  <label class="f" for="bDate">Date<input type="date" id="bDate" min="${minS}" value="${b.date}"></label>
+  <label class="f" for="bTime">Time<select id="bTime"><option value="">Choose a time</option>${a.times.map(t=>`<option ${b.time===t?"selected":""}>${t}</option>`).join("")}</select></label>
+  ${stepper("adults","Adults","Age 13+",b.adults)}
+  ${a.child||a.ages!=="18+"?stepper("children","Children",a.ages==="All ages"?"Age 0–12":a.ages.replace("Ages ","Age ").replace("+","")+"–12",b.children):""}
+  <div class="total"><span>Total</span><b class="price" id="total">${money(b.adults*a.price+b.children*a.child)}</b></div>
+  <p class="err" id="bErr" role="alert" hidden></p>
+  <button class="btn block" id="bookNow">Book now</button>
+  <button class="btn ghost block" id="saveAct">${inTrip("act",id)?"♥ Saved to My Trip":"♡ Save to My Trip"}</button>
+  <p class="note-sm">Free cancellation up to 24 hours before the start time.</p></aside></div>`}
+function stepper(k,l,sub,v){return `<div class="stepper"><div><b>${l}</b><div class="note-sm">${sub}</div></div><div class="ctl"><button type="button" data-step="${k}" data-d="-1" aria-label="Remove one ${l.toLowerCase().slice(0,-1)}">−</button><output id="out-${k}" aria-live="polite">${v}</output><button type="button" data-step="${k}" data-d="1" aria-label="Add one ${l.toLowerCase().slice(0,-1)}">+</button></div></div>`}
+
+function vBook(id){const b=state.booking;const item=b&&b.id===id?(b.kind==="stay"?STAYS.find(s=>s.id===id):ACTS.find(a=>a.id===id)):null;
+ if(!item||!b.ready)return `<div class="empty"><b>Your booking session expired.</b><a class="btn small" href="#things">Choose an activity</a></div>`;
+ const back=b.kind==="stay"?`#lodging-${id}`:`#activity-${id}`;
+ return `<div class="crumbs"><a href="${back}">‹ Back to ${item.name}</a></div><h1>Complete your booking</h1>
+ <div class="steps" aria-label="Booking progress"><span>1 Choose</span><span class="on" aria-current="step">2 Your details &amp; payment</span><span>3 Confirmed</span></div>
+ <div class="two"><form id="bookForm" novalidate><div class="form">
+  <label class="f" for="fName">Full name<input id="fName" autocomplete="name" required value="${b.name||""}"></label>
+  <label class="f" for="fEmail">Email<input id="fEmail" type="email" autocomplete="email" required value="${b.email||""}"></label>
+  <label class="f" for="fPhone">Phone (optional)<input id="fPhone" type="tel" autocomplete="tel"></label>
+  <label class="f" for="fPickup">${b.kind==="stay"?"Arriving by":"Pickup location"}<select id="fPickup">${(b.kind==="stay"?["Air","Cruise ship"]:["My hotel in Taniti City","My hotel in Merriton Landing","Meet at the activity"]).map(o=>`<option>${o}</option>`).join("")}</select></label>
+  <label class="f full" for="fCard">Card number<input id="fCard" inputmode="numeric" placeholder="Prototype: any 16 digits" autocomplete="off"></label>
+  <p class="note-sm full">This is a prototype. No payment is taken.</p>
+  <p class="err full" id="fErr" role="alert" hidden></p>
+  <div class="full" style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn ghost" href="${back}">Back</a><button class="btn" type="submit">Confirm booking · ${money(b.total)}</button></div>
+ </div></form>
+ <aside class="summary" aria-label="Booking summary"><p class="eyebrow">Your booking</p><h3>${item.name}</h3><p>${b.lineDate}</p><p>${b.lineGuests}</p><p class="total" style="margin-top:8px"><span>Total</span><b class="price">${money(b.total)}</b></p></aside></div>`}
+
+function vConfirm(){const b=state.booking;if(!b||!b.conf)return `<div class="empty"><b>No booking to show yet.</b><a class="btn small" href="#things">Find something to do</a></div>`;
+ const item=b.kind==="stay"?STAYS.find(s=>s.id===b.id):ACTS.find(a=>a.id===b.id);
+ return `<div class="confirm"><div class="check" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div>
+ <h1>You're booked!</h1><p>Confirmation <b>${b.conf}</b> was sent to ${b.email}.</p>
+ <div class="summary" style="text-align:left"><h3>${item.name}</h3><p>${b.lineDate}</p><p>${b.lineGuests}</p><p class="total"><span>Total paid</span><b class="price">${money(b.total)}</b></p></div>
+ <h2 style="text-align:left;font-size:1.3rem">Next steps for your trip</h2>
+ <div class="next"><a href="#getting-around"><span>How to get there: buses, taxis and pickups</span><span>›</span></a>
+ <a href="#plan"><span>Know before you go: holidays, currency, power</span><span>›</span></a>
+ ${b.kind==="stay"?`<a href="#things"><span>Add activities to your stay</span><span>›</span></a>`:`<a href="#stay"><span>Find a place to stay</span><span>›</span></a>`}</div>
+ <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn ghost" href="#mytrip">View My Trip</a><a class="btn" href="#things">Keep exploring</a></div></div>`}
+
+function vStay(){const types=["All","Resort","Hotel","B&B","Hostel","Condo / Beach house"];
+ const list=STAYS.filter(s=>(state.stayType==="All"||s.type===state.stayType)&&(state.stayArea==="all"||s.area===state.stayArea)&&(!state.stayFam||s.family));
+ return `<div class="crumbs"><a href="#home">Home</a> › Where to Stay</div><h1>Where to Stay</h1>
+ <p class="muted" style="margin-top:6px">From a beach resort to a budget hostel. Every place to stay on Taniti is regulated and regularly inspected by the government.</p>
+ <div class="filters" role="group" aria-label="Filter by type">${types.map(t=>`<button class="chip" data-type="${t}" aria-pressed="${state.stayType===t}">${t}</button>`).join("")}</div>
+ <div class="selects"><label class="f" for="stayArea">Area<select id="stayArea"><option value="all">All areas</option>${["Taniti City","Merriton Landing","Rainforest"].map(a=>`<option ${state.stayArea===a?"selected":""}>${a}</option>`).join("")}</select></label>
+ <label class="f" for="famChk" style="display:flex;gap:8px;align-items:center;padding-bottom:10px;color:var(--ink)"><input type="checkbox" id="famChk" ${state.stayFam?"checked":""}> Family-friendly only</label></div>
+ <p class="result-count" aria-live="polite">${list.length} ${list.length===1?"place":"places"} to stay</p>
+ <div class="stack">${list.length?list.map(s=>`<article class="row-card"><a class="pic" href="#lodging-${s.id}" tabindex="-1" aria-hidden="true">${scene(s.type==="Condo / Beach house"||s.type==="Resort"?"beach":s.area==="Rainforest"?"rainforest":"room")}</a>
+  <div class="body"><div class="tags"><span class="tag">${s.type}${s.stars?" · "+s.stars:""}</span>${s.family?'<span class="tag fam">Family-friendly</span>':""}</div><h3>${s.name}</h3><p class="meta muted">${s.area} · ${s.feat.slice(0,3).join(" · ")}</p></div>
+  <div class="act"><span><span class="price">${money(s.price)}</span> <span class="note-sm">/ night</span></span><a class="btn small" href="#lodging-${s.id}">View &amp; Book</a></div></article>`).join(""):`<div class="empty"><b>No places match these filters.</b><button class="btn ghost small" id="clearS">Clear filters</button></div>`}</div>`}
+
+function vLodging(id){const s=STAYS.find(x=>x.id===id);if(!s)return vNotFound();
+ const b=state.booking&&state.booking.id===id?state.booking:{id,kind:"stay",date:"",out:"",adults:2,children:0};state.booking=b;b.kind="stay";
+ const min=new Date();min.setDate(min.getDate()+1);const minS=min.toISOString().slice(0,10);
+ return `<div class="crumbs"><a href="#home">Home</a> › <a href="#stay">Where to Stay</a> › ${s.name}</div>
+ <div class="detail"><div><div class="pic">${scene(s.type==="Resort"||s.type==="Condo / Beach house"?"beach":s.area==="Rainforest"?"rainforest":"room")}</div>
+ <h1 style="margin-top:18px">${s.name}</h1><div class="facts"><span><b>Type:</b> ${s.type}${s.stars?" ("+s.stars+")":""}</span><span><b>Area:</b> ${s.area}</span>${s.family?"<span><b>Family-friendly</b></span>":""}</div>
+ <div class="copy"><p>${s.desc}</p><h3>Highlights</h3><ul>${s.feat.map(f=>`<li>${f}</li>`).join("")}<li>Government inspected</li></ul>
+ <h3>Getting there</h3><p>${s.area==="Taniti City"?"On the public bus line (5 a.m.–11 p.m.). Taxis wait at the airport.":s.area==="Merriton Landing"?"Merriton Landing is easy to explore on foot. Taxis and private buses connect to the airport.":"Private buses and rental cars reach the rainforest area."} <a href="#getting-around">Transportation options</a></p></div></div>
+ <aside class="panel" aria-label="Book this stay"><h3>Book your stay</h3><p><span class="price" style="font-size:1.3rem">${money(s.price)}</span> <span class="muted">per night</span></p>
+  <label class="f" for="bDate">Check-in<input type="date" id="bDate" min="${minS}" value="${b.date}"></label>
+  <label class="f" for="bOut">Check-out<input type="date" id="bOut" min="${minS}" value="${b.out}"></label>
+  ${stepper("adults","Adults","Age 13+",b.adults)}${stepper("children","Children","Age 0–12",b.children)}
+  <div class="total"><span id="nightsLbl">Total</span><b class="price" id="total">Choose dates</b></div>
+  <p class="err" id="bErr" role="alert" hidden></p>
+  <button class="btn block" id="bookNow">Book now</button>
+  <button class="btn ghost block" id="saveStay">${inTrip("stay",id)?"♥ Saved to My Trip":"♡ Save to My Trip"}</button>
+  <p class="note-sm">Free cancellation up to 3 days before check-in.</p></aside></div>`}
+
+function vDining(){const groups=["Local fish & rice","American","Pan-Asian"];
+ return `<div class="crumbs"><a href="#home">Home</a> › Food &amp; Dining</div><h1>Food &amp; Dining</h1>
+ <p class="muted" style="margin-top:6px">Taniti has 10 restaurants. Many close on national holidays, so <a href="#holidays">check the calendar</a>.</p>
+ ${groups.map(g=>`<section style="margin-top:28px"><h2 style="font-size:1.3rem;margin-bottom:12px">${g}</h2><div class="grid">${FOOD.filter(f=>f[1]===g).map(f=>`<article class="card"><div class="pic">${scene("food")}</div><div class="body"><h3>${f[0]}</h3><p class="meta">${f[2]}</p><div class="foot"><span class="note-sm">Walk-ins welcome</span><button class="btn small ghost" data-res="${f[0]}">Reserve a table</button></div></div></article>`).join("")}</div></section>`).join("")}
+ <section><h2 style="font-size:1.3rem;margin-bottom:12px">Groceries</h2><div class="ways">
+ <div class="way"><h3>Supermarkets (2)</h3><p>Taniti City and Merriton Landing.</p></div><div class="way"><h3>Grocery stores (2)</h3><p>Smaller neighborhood shops with local produce.</p></div><div class="way"><h3>Convenience store</h3><p>Open <span class="hl">24 hours a day</span> in Taniti City.</p></div></div></section>`}
+
+function vGetting(){const ic={plane:'<path d="M2 16l20-6-20-6 4 6z M6 10h7"/>',ship:'<path d="M3 17l2 4h14l2-4zM6 17V9h12v8M12 3v6"/>',bus:'<rect x="4" y="3" width="16" height="15" rx="2"/><path d="M4 11h16M7 21v-3M17 21v-3"/>',taxi:'<path d="M5 17h14v-5l-2-5H7l-2 5zM7 20v-3M17 20v-3M9 4h6"/>',car:'<path d="M3 16h18v-4l-3-5H6l-3 5zM6 19v-3M18 19v-3"/>',bike:'<circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l5-8h4l3 8M11 8l2 8"/>',walk:'<circle cx="13" cy="4" r="2"/><path d="M11 21l2-7-3-3 1-4 4 3 3 1M9 13l-2 8"/>'};
+ const w=(i,t,body,extra="")=>`<div class="way"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">${ic[i]}</svg>${t}</h3>${body}${extra}</div>`;
+ return `<div class="crumbs"><a href="#home">Home</a> › Getting Around</div><h1>Getting Here &amp; Around</h1>
+ <section style="margin-top:24px"><h2 style="font-size:1.3rem;margin-bottom:12px">Getting to Taniti</h2><div class="ways">
+ ${w("plane","By air","<p>Almost all visitors fly in. Taniti's airport serves small jets and propeller planes. An expansion for larger jets is under way.</p>")}
+ ${w("ship","By cruise ship","<p>A small cruise ship docks in Yellow Leaf Bay <span class='hl'>one night each week</span>. Plan short tours that return before departure.</p>")}</div></section>
+ <section><h2 style="font-size:1.3rem;margin-bottom:12px">Getting around the island</h2><div class="ways">
+ ${w("bus","Public bus","<p>Serves Taniti City <span class='hl'>daily, 5 a.m. to 11 p.m.</span> Private buses serve the rest of the island.</p>")}
+ ${w("taxi","Taxis","<p>Available in Taniti City. Ask your hotel to call one.</p>")}
+ ${w("car","Rental cars","<p>One local agency near the airport. Reserve ahead in busy months.</p>",'<button class="btn small ghost" data-res="Rental car">Reserve a car</button>')}
+ ${w("bike","Bikes","<p>Rent from several vendors. <span class='hl'>Helmets are required by law</span> and come with every rental.</p>",'<button class="btn small ghost" data-res="Bike rental">Rent a bike</button>')}
+ ${w("walk","Walking","<p>Taniti City is fairly flat and very walkable. Merriton Landing is also easy to explore on foot.</p>")}</div></section>`}
+
+const FAQ=[
+ ["holidays","National holidays and closures",`<p>Taniti has many national holidays. Many attractions and restaurants close on these days, so plan around them.</p><div class="tablewrap"><table class="hol"><thead><tr><th>Date</th><th>Holiday</th></tr></thead><tbody>${HOLIDAYS.map(h=>`<tr><td>${h[0]}</td><td>${h[1]}</td></tr>`).join("")}</tbody></table></div><p class="note-sm">Sample dates for this prototype.</p>`],
+ ["currency","Currency and payments","<p>Taniti uses the U.S. dollar. Many businesses also accept euros and yen, and many take major credit cards. Several banks exchange currency.</p>"],
+ ["power","Power outlets","<p>Outlets are 120 volts, the same as in the United States. U.S. visitors do not need an adapter.</p>"],
+ ["language","Language","<p>Many younger Tanitians speak fluent English. Very little English is spoken in rural areas, especially by older residents.</p>"],
+ ["health","Health and hospital","<p>Taniti has one hospital and several clinics. The hospital has many multilingual staff.</p>"],
+ ["safety","Safety tips","<p>Violent crime is very rare. Pickpocketing and other petty crime have increased with tourism, so keep valuables close in busy areas.</p>"],
+ ["alcohol","Alcohol laws","<p>Alcohol cannot be served or sold between midnight and 9:00 a.m. The drinking age is 18.</p>"],
+ ["lodging","Lodging standards","<p>All lodging is strictly regulated and regularly inspected by the Tanitian government.</p>"]];
+function vPlan(open){return `<div class="crumbs"><a href="#home">Home</a> › Plan Your Trip</div><h1>Know Before You Go</h1>
+ <p class="muted" style="margin-top:6px">Answers to the questions visitors ask most.</p>
+ <div class="search"><label class="f" for="faqSearch">Search travel info<input id="faqSearch" type="search" placeholder="Try: power, holidays, currency"></label></div>
+ <div class="faq" id="faqList">${FAQ.map(([k,q,a])=>`<details id="faq-${k}" data-text="${(q+" "+a.replace(/<[^>]+>/g," ")).toLowerCase()}" ${open===k?"open":""}><summary>${q}</summary><div class="a">${a}</div></details>`).join("")}</div>
+ <p class="result-count" id="faqNone" hidden>No answers match. Try another word or <a href="#getting-around">see transportation</a>.</p>`}
+
+function vTrip(){return `<div class="crumbs"><a href="#home">Home</a> › My Trip</div><h1>My Trip</h1>
+ <p class="muted" style="margin:6px 0 20px">Places and activities you saved. Book them when you're ready.</p>
+ ${state.trip.length?`<div class="stack">${state.trip.map(t=>`<div class="way" style="grid-template-columns:1fr auto;align-items:center"><div><p class="eyebrow">${t.kind==="stay"?"Place to stay":"Activity"}</p><h3>${t.name}</h3></div><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn small" href="#${t.kind==="stay"?"lodging":"activity"}-${t.id}">Book</a><button class="btn small ghost" data-rm="${t.kind}|${t.id}|${t.name}">Remove</button></div></div>`).join("")}</div>`
+ :`<div class="empty"><b>Nothing saved yet.</b><p>Tap "Save to My Trip" on any activity or place to stay.</p><a class="btn small" href="#things">Browse things to do</a></div>`}`}
+function vNotFound(){return `<div class="empty"><b>We couldn't find that page.</b><a class="btn small" href="#home">Go to the home page</a></div>`}
+
+// ---------- router ----------
+function route(){const h=(location.hash||"#home").slice(1);
+ if(h.startsWith("activity-"))return["things",vActivity(h.slice(9))];
+ if(h.startsWith("book-"))return["",vBook(h.slice(5))];
+ if(h.startsWith("lodging-"))return["stay",vLodging(h.slice(8))];
+ if(h==="holidays")return["plan",vPlan("holidays")];
+ const m={home:["",vHome],things:["things",vThings],stay:["stay",vStay],dining:["dining",vDining],"getting-around":["getting-around",vGetting],plan:["plan",()=>vPlan()],confirm:["",vConfirm],mytrip:["",vTrip]};
+ const r=m[h];return r?[r[0],r[1]()]:["",vNotFound()]}
+let lastHash=null;
+function render(){const [nav,html]=route();sceneN=0;$("#view").innerHTML=html;
+ document.querySelectorAll("nav.main a").forEach(a=>a.getAttribute("href")==="#"+nav?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
+ bind();if(location.hash!==lastHash){lastHash=location.hash;const t=location.hash==="#holidays"?document.getElementById("faq-holidays"):null;
+  if(t)t.scrollIntoView({block:"start"});else window.scrollTo(0,0);}}
+function go(h){if(location.hash===h)render();else location.hash=h}
+
+function bind(){
+ document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{state.cat=b.dataset.cat;render()});
+ const as=$("#areaSel");if(as)as.onchange=()=>{state.area=as.value;render()};
+ const cf=$("#clearF");if(cf)cf.onclick=()=>{state.cat="all";state.area="all";render()};
+ document.querySelectorAll("[data-type]").forEach(b=>b.onclick=()=>{state.stayType=b.dataset.type;render()});
+ const sa=$("#stayArea");if(sa)sa.onchange=()=>{state.stayArea=sa.value;render()};
+ const fc=$("#famChk");if(fc)fc.onchange=()=>{state.stayFam=fc.checked;render()};
+ const cs=$("#clearS");if(cs)cs.onclick=()=>{state.stayType="All";state.stayArea="all";state.stayFam=false;render()};
+ document.querySelectorAll("[data-res]").forEach(b=>b.onclick=()=>toast(b.dataset.res+": request sent (prototype)"));
+ document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{const [k,i,n]=b.dataset.rm.split("|");toggleTrip(k,i,n)});
+ // activity / lodging booking panel
+ const b=state.booking;const h=location.hash;
+ if(b&&(h.startsWith("#activity-")||h.startsWith("#lodging-"))){
+  const isStay=h.startsWith("#lodging-");const item=isStay?STAYS.find(s=>s.id===b.id):ACTS.find(a=>a.id===b.id);if(!item)return;
+  const nights=()=>{if(!b.date||!b.out)return 0;return Math.round((new Date(b.out)-new Date(b.date))/864e5)};
+  const calc=()=>isStay?nights()*item.price:b.adults*item.price+b.children*item.child;
+  const upd=()=>{const t=$("#total");if(isStay){const n=nights();t.textContent=n>0?money(calc()):"Choose dates";$("#nightsLbl").textContent=n>0?`Total for ${n} night${n>1?"s":""}`:"Total"}else t.textContent=money(calc())};
+  upd();
+  document.querySelectorAll("[data-step]").forEach(btn=>btn.onclick=()=>{const k=btn.dataset.step;const v=Math.max(k==="adults"?1:0,Math.min(12,b[k]+ +btn.dataset.d));b[k]=v;$("#out-"+k).textContent=v;upd()});
+  const hideErr=()=>{$("#bErr").hidden=true};
+  $("#bDate").onchange=e=>{b.date=e.target.value;hideErr();upd()};
+  if(isStay)$("#bOut").onchange=e=>{b.out=e.target.value;hideErr();upd()};else $("#bTime").onchange=e=>{b.time=e.target.value;hideErr()};
+  const sv=$(isStay?"#saveStay":"#saveAct");sv.onclick=()=>toggleTrip(isStay?"stay":"act",item.id,item.name);
+  $("#bookNow").onclick=()=>{const err=$("#bErr");const miss=[];
+   if(!b.date)miss.push(isStay?"a check-in date":"a date");
+   if(isStay&&!b.out)miss.push("a check-out date");
+   if(!isStay&&!b.time)miss.push("a time");
+   if(isStay&&b.date&&b.out&&nights()<1){err.textContent="Check-out must be after check-in.";err.hidden=false;return}
+   if(miss.length){err.textContent="Please choose "+miss.join(" and ")+".";err.hidden=false;return}
+   const fmt=d=>new Date(d+"T12:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
+   b.kind=isStay?"stay":"act";b.total=calc();b.ready=true;
+   b.lineDate=isStay?`${fmt(b.date)} to ${fmt(b.out)} (${nights()} night${nights()>1?"s":""})`:`${fmt(b.date)} at ${b.time}`;
+   b.lineGuests=`${b.adults} adult${b.adults>1?"s":""}${b.children?`, ${b.children} child${b.children>1?"ren":""}`:""} · ${b.adults+b.children} guest${b.adults+b.children>1?"s":""}`;
+   go("#book-"+item.id)};
+ }
+ const f=$("#bookForm");if(f)f.onsubmit=e=>{e.preventDefault();const err=$("#fErr");const n=$("#fName").value.trim(),em=$("#fEmail").value.trim(),c=$("#fCard").value.replace(/\D/g,"");
+  const p=[];if(!n)p.push("your full name");if(!/^\S+@\S+\.\S+$/.test(em))p.push("a valid email");if(c.length<15)p.push("a card number (any 16 digits in this prototype)");
+  if(p.length){err.textContent="Please enter "+p.join(", ")+".";err.hidden=false;return}
+  const bk=state.booking;bk.name=n;bk.email=em;bk.conf="TAN-"+Math.floor(100000+Math.random()*900000);go("#confirm")};
+ const fs=$("#faqSearch");if(fs)fs.oninput=()=>{const q=fs.value.trim().toLowerCase();let shown=0;
+  document.querySelectorAll("#faqList details").forEach(d=>{const m=!q||d.dataset.text.includes(q);d.hidden=!m;if(m)shown++;if(q&&m)d.open=true});$("#faqNone").hidden=shown>0};
+}
+// menu + notice
+const mb=$("#menuBtn"),mm=$("#mobileMenu");
+mb.onclick=()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute("aria-expanded",String(o));mb.setAttribute("aria-label",o?"Close menu":"Open menu")};
+mm.addEventListener("click",e=>{if(e.target.closest("a")){mm.hidden=true;mb.setAttribute("aria-expanded","false")}});
+$("#closeNotice").onclick=()=>{$("#notice").hidden=true};
+window.addEventListener("hashchange",render);
+saveTrip();render();
+</script>
+</body></html>
